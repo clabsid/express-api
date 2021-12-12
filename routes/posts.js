@@ -91,4 +91,68 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// update data
+router.put(
+  "/update/:id",
+  [
+    // validasi
+    body("title").notEmpty().withMessage("Title tidak boleh kosong"),
+    body("description")
+      .notEmpty()
+      .withMessage("Description tidak boleh kosong"),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array(),
+      });
+    }
+
+    let id = req.params.id;
+
+    let formData = {
+      title: req.body.title,
+      description: req.body.description,
+    };
+
+    connection.query(
+      `UPDATE posts SET ? WHERE id='${id}'`,
+      formData,
+      (err, rows) => {
+        if (err) {
+          return res.status(500).json({
+            status: false,
+            message: err,
+          });
+        } else {
+          return res.status(201).json({
+            status: true,
+            message: "Update Data Successfully",
+            data: rows[0],
+          });
+        }
+      }
+    );
+  }
+);
+
+// delete data
+router.delete("/delete/:id", (req, res) => {
+  let id = req.params.id;
+  connection.query(`DELETE FROM posts WHERE id='${id}'`, (err) => {
+    if (err) {
+      return res.status(500).json({
+        status: false,
+        message: "Internal Server Error",
+      });
+    } else {
+      return res.status(200).json({
+        status: true,
+        message: "Delete Data Successfully!",
+      });
+    }
+  });
+});
+
 module.exports = router;
