@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// insert
+// insert data
 router.post(
   "/store",
   [
@@ -64,7 +64,7 @@ router.post(
   }
 );
 
-// post detil
+// post detil by id
 router.get("/:id", (req, res) => {
   const id = req.params.id;
 
