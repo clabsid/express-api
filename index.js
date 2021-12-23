@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// route data posts (CRUD)
+// route untuk posts (CRUD)
 const postsRouter = require("./routes/posts");
 app.use("/api/post", postsRouter);
 
