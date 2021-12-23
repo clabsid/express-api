@@ -5,6 +5,7 @@ const connection = require("../config/database");
 // validator
 const { body, validationResult } = require("express-validator");
 
+// get all
 router.get("/", (req, res) => {
   connection.query("SELECT * FROM posts ORDER BY id desc", (err, rows) => {
     if (err) {
@@ -22,7 +23,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// insert data
+// insert
 router.post(
   "/store",
   [
@@ -91,7 +92,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// update data
+// update
 router.put(
   "/update/:id",
   [
@@ -137,7 +138,7 @@ router.put(
   }
 );
 
-// delete data post
+// delete
 router.delete("/delete/:id", (req, res) => {
   let id = req.params.id;
   connection.query(`DELETE FROM posts WHERE id='${id}'`, (err) => {
