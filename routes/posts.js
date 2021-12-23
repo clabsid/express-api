@@ -137,7 +137,7 @@ router.put(
   }
 );
 
-// delete data
+// delete data post
 router.delete("/delete/:id", (req, res) => {
   let id = req.params.id;
   connection.query(`DELETE FROM posts WHERE id='${id}'`, (err) => {
